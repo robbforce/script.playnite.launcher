@@ -54,6 +54,10 @@ SplitPath, % Parameters.1, PlayniteExe, PlayniteDir
 SplitPath, % Parameters.2, KodiExe
 
 KodiClass := "Kodi"
+PlayniteDesktopExe := "Playnite.DesktopApp.exe"
+PlayniteFullscreenExe := "Playnite.FullscreenApp.exe"
+GroupAdd, PlayniteExes, % "ahk_exe " . PlayniteDesktopExe
+GroupAdd, PlayniteExes, % "ahk_exe " . PlayniteFullscreenExe
 
 ; Uncomment the following line and add the PID of a running app to see the title and class in a msgbox.
 ;GetProcessInfo(20400)
@@ -77,11 +81,10 @@ If (oIcons[1].process = PlayniteExe)
   WinWaitActive, ahk_exe %PlayniteExe%,,5
 }
 
-; Check if Playnite is running and launch or focus it.
-Process, Exist, %PlayniteExe%
-If (ErrorLevel > 0)
+; Check if Playnite is running for the current user and launch or focus it.
+varPID := ProcessExist(PlayniteExe, A_UserName)
+If (varPID > 0)
 {
-  varPID = %ErrorLevel%
   If (WinExist("ahk_pid " . varPID))
   {
     WinRestore, ahk_pid %varPID%
@@ -105,15 +108,14 @@ WinWaitActive, ahk_pid %varPID%,, 5
 
 ; Register win hooks to detect when Playnite is closed or minimized.
 WinHook.Event.Add(0x8001, 0x8001, "PlayniteClosedEvent", varPID, "Playnite")
-WinHook.Event.Add(0x0016, 0x0016, "PlayniteMinimizedEvent", varPID, "Playnite")
+;WinHook.Event.Add(0x0016, 0x0016, "PlayniteMinimizedEvent", varPID, "Playnite")
 
-; Now close / kill Kodi.
+; Now close / kill Kodi for the current user.
 If (Parameters.3 = "0")
 {
-  Process, Exist, %KodiExe%
-  If (ErrorLevel > 0)
+  varPID := ProcessExist(KodiExe, A_UserName)
+  If (varPID > 0)
   {
-    varPID = %ErrorLevel%
     Process, Close, %varPID%
   }
 
@@ -142,11 +144,10 @@ If (Parameters.6 != "false")
   RunWait, % Parameters.6,, Hide
 }
 
-; If Kodi is running, but minimized, store the PID in a local variable and restore the window.
-Process, Exist, %KodiExe%
-If (ErrorLevel > 0)
+; If Kodi is running for the current user, but minimized, store the PID in a local variable and restore the window.
+varPID := ProcessExist(KodiExe, A_UserName)
+If (varPID > 0)
 {
-  varPID = %ErrorLevel%
   If (Parameters.3 = "1") And (WinExist("ahk_pid " . varPID))
   {
     WinRestore, ahk_pid %varPID%
@@ -179,17 +180,30 @@ If (Parameters.3 = "0")
 WinWaitActive, ahk_pid %varPID%,,5
 
 ; ----------------------------------------------------------------------------------------------------------------------
-; Check if Playnite re-opened after an update. ErrorLevel 0 indicates the window was found.
-WinWaitActive, ahk_exe %PlayniteExe%,,10
+; Check if Playnite re-opened after an update or the user switched to the dekstop / fullscreen exe.
+; ErrorLevel 0 indicates the window was found.
+WinWaitActive, ahk_group PlayniteExes,,10
 If (ErrorLevel = 0)
 {
-  ; Set the PID variable again.
-  Process, Exist, %PlayniteExe%
-  If (ErrorLevel > 0)
+  ; Set the PID variable again. Try the fullscreen exe first.
+  varPID := ProcessExist(PlayniteFullscreenExe, A_UserName)
+  If (varPID > 0)
   {
-    varPID = %ErrorLevel%
+    PlayniteExe = PlayniteFullscreenExe
+  }
+  Else
+  {
+    ; Fullscreen wasn't found so the desktop exe should be active then.
+    varPID := ProcessExist(PlayniteDesktopExe, A_UserName)
+    If (varPID > 0)
+    {
+      PlayniteExe = PlayniteDesktopExe
+    }
+  }
 
-    ; In case Playnite was minimized earlier, unhook events since we'll be adding new event hooks.
+  If (varPID > 0)
+  {
+    ; Unhook events just in case, since we'll be adding new event hooks.
     WinHook.Event.UnHookAll()
 
     ; Run the pre-Playnite script again if needed.
@@ -204,24 +218,6 @@ If (ErrorLevel = 0)
 }
 
 ExitApp
-
-RunAsAdmin()
-{
-  Loop, %0%
-  {
-    param := %A_Index%  ; Fetch the contents of the variable whose name is contained in A_Index.
-    params .= A_Space . param
-  }
-  ShellExecute := A_IsUnicode ? "shell32\ShellExecute":"shell32\ShellExecuteA"
-  if not A_IsAdmin
-  {
-    If A_IsCompiled
-      DllCall(ShellExecute, uint, 0, str, "RunAs", str, A_ScriptFullPath, str, params, str, A_WorkingDir, int, 1)
-    Else
-      DllCall(ShellExecute, uint, 0, str, "RunAs", str, A_AhkPath, str, """" . A_ScriptFullPath . """" . A_Space . params, str, A_WorkingDir, int, 1)
-    ExitApp
-  }
-}
 
 ; ----------------------------------------------------------------------------------------------------------------------
 ; Call this function with the PID you need info from. Ex: GetProcessInfo(21964)
@@ -238,6 +234,63 @@ GetProcessInfo(p_pid)
 }
 
 ; ----------------------------------------------------------------------------------------------------------------------
+; Simulate the Process, Exist command, but apply a filter for the current user.
+ProcessExist(varProcessName, processOwnerUserName := "")
+{
+  varQuery := "Select ProcessId from Win32_Process WHERE Name LIKE '%" . varProcessName . "%'"
+
+  For varProcess in ComObjGet("winmgmts:").ExecQuery(varQuery, "WQL", 48)
+  {
+    If (processOwnerUserName != "")
+    {
+      currentProcessOwnerUserName := ComVar()
+      varProcess.GetOwner(currentProcessOwnerUserName.ref)
+      If (currentProcessOwnerUserName[] != processOwnerUserName)
+        Continue
+    }
+    ; This will exit the loop early with the PID.
+    Return varProcess.processID
+  }
+  ; If we've landed outside the loop, then the process wasn't found. Simulate the Process, Exist command by returning 0.
+  Return 0
+}
+
+; ----------------------------------------------------------------------------------------------------------------------
+; These com functions are required by the ProcessExist function, to query Win32_Process.
+ComVar(Type=0xC)
+{
+  static base := { __Get: "ComVarGet", __Set: "ComVarSet", __Delete: "ComVarDel" }
+  ; Create an array of 1 VARIANT.  This method allows built-in code to take
+  ; care of all conversions between VARIANT and AutoHotkey internal types.
+  arr := ComObjArray(Type, 1)
+  ; Lock the array and retrieve a pointer to the VARIANT.
+  DllCall("oleaut32\SafeArrayAccessData", "ptr", ComObjValue(arr), "ptr*", arr_data)
+  ; Store the array and an object which can be used to pass the VARIANT ByRef.
+  Return { ref: ComObjParameter(0x4000|Type, arr_data), _: arr, base: base }
+}
+
+; Called when script accesses an unknown field.
+ComVarGet(cv, p*)
+{
+  If p.MaxIndex() = "" ; No name/parameters, i.e. cv[]
+    Return cv._[0]
+}
+
+; Called when script sets an unknown field.
+ComVarSet(cv, v, p*)
+{
+  If p.MaxIndex() = "" ; No name/parameters, i.e. cv[]:=v
+    Return cv._[0] := v
+}
+
+; Called when the object is being freed.
+ComVarDel(cv)
+{
+  ; This must be done to allow the internal array to be freed.
+  DllCall("oleaut32\SafeArrayUnaccessData", "ptr", ComObjValue(cv._))
+}
+
+; ----------------------------------------------------------------------------------------------------------------------
 ; This event is only fired when Playnite is closed, re-open Kodi.
 PlayniteClosedEvent(hWinEventHook, Win_Event, Win_Hwnd, idObject, idChild, dwEventThread, dwmsEventTime)
 {
@@ -245,7 +298,7 @@ PlayniteClosedEvent(hWinEventHook, Win_Event, Win_Hwnd, idObject, idChild, dwEve
 }
 
 ; This event is only fired when Playnite is minimized, re-open Kodi.
-PlayniteMinimizedEvent(hWinEventHook, Win_Event, Win_Hwnd, idObject, idChild, dwEventThread, dwmsEventTime)
-{
-  GoSub, OpenKodi
-}
+; PlayniteMinimizedEvent(hWinEventHook, Win_Event, Win_Hwnd, idObject, idChild, dwEventThread, dwmsEventTime)
+; {
+;   GoSub, OpenKodi
+; }

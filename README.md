@@ -1,7 +1,7 @@
 # Playnite Launcher
 An add-on for Kodi to launch the Playnite video game manager (Windows).
 
-The goal is to provide an easy method for Kodi to launch Playnite in Full Screen, in order to have a better HTPC experience. Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games.
+The goal is to provide an easy method for Kodi to launch Playnite in full screen, in order to have a better HTPC experience. Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games.
 
 **THIS ADD-ON WAS DERIVED FROM AND INSPIRED BY MULTIPLE SCRIPTS:**<br/>
 Steam Launcher by teeedub: https://github.com/teeedubb/teeedubb-xbmc-repo & http://forum.xbmc.org/showthread.php?tid=157499<br/>
@@ -9,7 +9,7 @@ Kodi-Launches-Playnite-Addon by hoksilato2: https://github.com/hoksilato2/Kodi-L
 (which was forked from) Kodi-Launches-Steam-Addon by BrosMakingSoftware: https://github.com/BrosMakingSoftware/Kodi-Launches-Steam-Addon<br/>
 Credit goes to them for their open source projects that enabled me to build upon their work.
 
-## Info you might like to know about this add-on
+### Info you might like to know about this add-on
 - All code is open source, hosted on [GitHub](https://github.com/robbforce/script.playnite.launcher) and published under the GPL v3 license.
 - Created for Kodi v17 (Krypton v17.x or higher) and following most [Add-on rules](http://kodi.wiki/view/Add-on_rules). (The compiled autohotkey script is an exception.)
 - To find Applications/Programs paths, this add-on relies on default environment variables found in Windows. No _"registry-hack"_ programs are used for this purpose.
