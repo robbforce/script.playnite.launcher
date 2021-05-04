@@ -1,32 +1,274 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<settings>
-  <category label="50050">
-    <setting label="50054" id="QuitKodi" type="enum" values="Yes|No|Ask" default="0"/>
-    <setting label="50123" id="MinimiseKodi" type="bool" enable="!eq(-1,0)" default="true"/>
-    <!-- <setting label="50051" id="KodiLinux" type="executable" visible="System.Platform.Linux" default="/usr/bin/kodi"/>
-    <setting label="50052" id="PlayniteLinux" type="executable" visible="System.Platform.Linux" default="/usr/bin/playnite"/> -->
-    <setting label="50051" id="KodiWin" type="executable" visible="system.platform.windows" default="C:\Program Files\Kodi\Kodi.exe"/>
-    <setting label="50052" id="PlayniteDesktopWin" type="executable" visible="system.platform.windows" default="C:\Program Files\Playnite\Playnite.DesktopApp.exe"/>
-    <setting label="50053" id="PlayniteFullscreenWin" type="executable" visible="system.platform.windows" default="C:\Program Files\Playnite\Playnite.FullscreenApp.exe"/>
-    <!-- <setting label="50051" id="KodiOsx" type="folder" visible="system.platform.osx" default="/Applications/Kodi.app/"/>
-    <setting label="50052" id="PlayniteOsx" type="folder" visible="system.platform.osx" default="/Applications/Playnite.app/"/> -->
-    <setting label="50125" id="ForceKillKodi" type="number" default="0"/>
-    <setting label="50126" id="DesktopMode" type="bool" default="false"/>
-  </category>
-  <category label="50100">
-    <setting label="50110" id="DelUserScript" type="bool" default="false"/>
-    <setting label="50115" id="KodiPortable" type="bool" default="false"/>
-    <setting label="50121" id="SuspendAudio" type="bool" default="false"/>
-    <setting label="50112" id="BusyDialogTime" type="number" default="10"/>
-    <setting label="50113" id="ScriptUpdateCheck" type="bool" default="true"/>
-    <setting label="50114" id="FilePathCheck" type="bool" default="true"/>
-    <!-- <setting label="50120" id="WmctrlCheck" type="bool" visible="System.Platform.Linux" default="true"/> -->
-    <setting label="50111" id="CustomScript" type="bool" default="false"/>
-    <setting label="50122" id="CustomScriptFolder" type="folder" enable="eq(-1,true)"/>
-    <setting label="50116" id="PreScriptEnabled" type="bool" default="false"/>
-    <setting label="50117" id="PreScript" type="executable" enable="eq(-1,true)"/>
-    <setting label="50119" id="PostScriptEnabled" type="bool" default="false"/>
-    <setting label="50118" id="PostScript" type="executable" enable="eq(-1,true)"/>
-    <setting label="50124" id="PlayniteParameters" type="text"/>
-  </category>
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.playnite.launcher">
+		<category id="General" label="50050" help="">
+			<group id="1">
+				<setting id="QuitKodi" label="50054" type="integer" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="Yes">0</option>
+							<option label="No">1</option>
+							<option label="Ask">2</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="MinimizeKodi" label="50123" type="boolean" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+							<condition operator="!is" setting="QuitKodi">0</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<!-- <setting help="" id="KodiLinux" label="50051" type="path">
+					<level>0</level>
+					<default>/usr/bin/kodi</default>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">System.Platform.Linux</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50051</heading>
+					</control>
+				</setting> -->
+				<!-- <setting help="" id="PlayniteLinux" label="50052" type="path">
+					<level>0</level>
+					<default>/usr/bin/steam</default>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">System.Platform.Linux</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50052</heading>
+					</control>
+				</setting> -->
+				<setting id="KodiWin" label="50051" type="path" help="">
+					<level>0</level>
+					<default>C:\Program Files\Kodi\Kodi.exe</default>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">system.platform.windows</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50051</heading>
+					</control>
+				</setting>
+				<setting id="PlayniteDesktopWin" label="50052" type="path" help="">
+					<level>0</level>
+					<default>C:\Program Files\Playnite\Playnite.DesktopApp.exe</default>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">system.platform.windows</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50052</heading>
+					</control>
+				</setting>
+				<setting id="PlayniteFullscreenWin" label="50053" type="path" help="">
+					<level>0</level>
+					<default>C:\Program Files\Playnite\Playnite.FullscreenApp.exe</default>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">system.platform.windows</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50053</heading>
+					</control>
+				</setting>
+				<!-- <setting help="" id="KodiOsx" label="50051" type="path">
+					<level>0</level>
+					<default>/Applications/Kodi.app/</default>
+					<constraints>
+						<writable>false</writable>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">system.platform.osx</condition>
+						</dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>50051</heading>
+					</control>
+				</setting> -->
+				<!-- <setting help="" id="PlayniteOsx" label="50052" type="path">
+					<level>0</level>
+					<default>/Applications/Playnite.app/</default>
+					<constraints>
+						<writable>false</writable>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">system.platform.osx</condition>
+						</dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>50052</heading>
+					</control>
+				</setting> -->
+				<setting id="ForceKillKodi" label="50125" type="integer" help="">
+					<level>0</level>
+					<default>0</default>
+					<control format="integer" type="edit">
+						<heading>50125</heading>
+					</control>
+				</setting>
+				<setting id="DesktopMode" label="50126" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+		<category id="Advanced" label="50100" help="">
+			<group id="1">
+				<setting id="DelUserScript" label="50110" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="KodiPortable" label="50115" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="SuspendAudio" label="50121" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="BusyDialogTime" label="50112" type="integer" help="">
+					<level>0</level>
+					<default>10</default>
+					<control format="integer" type="edit">
+						<heading>50112</heading>
+					</control>
+				</setting>
+				<setting id="ScriptUpdateCheck" label="50113" type="boolean" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="FilePathCheck" label="50114" type="boolean" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<!-- <setting id="WmctrlCheck" label="50120" type="boolean" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition name="InfoBool" on="property">System.Platform.Linux</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting> -->
+				<setting id="CustomScript" label="50111" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="CustomScriptFolder" label="50122" type="path" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="CustomScript">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>50122</heading>
+					</control>
+				</setting>
+				<setting id="PreScriptEnabled" label="50116" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="PreScript" label="50117" type="path" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="PreScriptEnabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50117</heading>
+					</control>
+				</setting>
+				<setting id="PostScriptEnabled" label="50119" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="PostScript" label="50118" type="path" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<masking>executable</masking>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="PostScriptEnabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="file" type="button">
+						<heading>50118</heading>
+					</control>
+				</setting>
+				<setting id="PlayniteParameters" label="50124" type="string" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>50124</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+	</section>
 </settings>

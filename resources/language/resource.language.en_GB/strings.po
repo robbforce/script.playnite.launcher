@@ -1,0 +1,141 @@
+# Kodi Media Center language file
+# Addon Name: Playnite Launcher
+# Addon id: script.playnite.launcher
+# Addon Provider: robbforce
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: 2021-03-20 11:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: n/a\n"
+"Language-Team: English (http://www.transifex.com/projects/p/kodi-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+# Catergories
+
+msgctxt "#50050"
+msgid "General"
+msgstr ""
+
+msgctxt "#50100"
+msgid "Advanced"
+msgstr ""
+
+# General settings
+
+msgctxt "#50051"
+msgid "Kodi exe"
+msgstr ""
+
+msgctxt "#50052"
+msgid "Playnite desktop exe"
+msgstr ""
+
+msgctxt "#50053"
+msgid "Playnite fullscreen exe"
+msgstr ""
+
+msgctxt "#50054"
+msgid "Quit Kodi"
+msgstr ""
+
+msgctxt "#50125"
+msgid "Force kill Kodi after X seconds? (zero to disable)"
+msgstr ""
+
+msgctxt "#50126"
+msgid "Launch Playnite in desktop mode"
+msgstr ""
+
+# Advanced settings
+
+msgctxt "#50110"
+msgid "Delete and update userdata scripts on next run"
+msgstr ""
+
+msgctxt "#50111"
+msgid "Custom path for scripts"
+msgstr ""
+
+msgctxt "#50112"
+msgid "'Busy dialog' timeout (in seconds)"
+msgstr ""
+
+msgctxt "#50113"
+msgid "Script update notification"
+msgstr ""
+
+msgctxt "#50114"
+msgid "Program path check"
+msgstr ""
+
+msgctxt "#50115"
+msgid "Run Kodi in portable mode"
+msgstr ""
+
+msgctxt "#50116"
+msgid "Run a script before Playnite"
+msgstr ""
+
+msgctxt "#50117"
+msgid "Pre Playnite script location"
+msgstr ""
+
+msgctxt "#50118"
+msgid "Post Playnite script location"
+msgstr ""
+
+msgctxt "#50119"
+msgid "Run a script after Playnite"
+msgstr ""
+
+# msgctxt "#50120"
+# msgid "Check for program 'wmctrl'"
+# msgstr ""
+
+msgctxt "#50121"
+msgid "Suspend Kodi audio when running Playnite"
+msgstr ""
+
+msgctxt "#50122"
+msgid "Scripts folder"
+msgstr ""
+
+msgctxt "#50123"
+msgid "Minimize/Maximize Kodi"
+msgstr ""
+
+msgctxt "#50124"
+msgid "Parameters to pass to the Playnite executable"
+msgstr ""
+
+# Error messages
+
+msgctxt "#50210"
+msgid "File does not exist"
+msgstr ""
+
+msgctxt "#50211"
+msgid "Open addon settings?"
+msgstr ""
+
+msgctxt "#50212"
+msgid "ERROR!"
+msgstr ""
+
+msgctxt "#50213"
+msgid "New scripts available, update userdata scripts?"
+msgstr ""
+
+msgctxt "#50124"
+msgid "Select 'No' to disable the Script Update Check"
+msgstr ""
+
+msgctxt "#50125"
+msgid "Check kodi.log file for details"
+msgstr ""

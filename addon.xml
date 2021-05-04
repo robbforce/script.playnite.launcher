@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.playnite.launcher" name="Playnite" version="1.0.0" provider-name="teeedubb, hoksilato2, robbforce">
+<addon id="script.playnite.launcher" name="Playnite" version="1.1.0" provider-name="teeedubb, hoksilato2, robbforce">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
   </requires>
   <extension point="xbmc.python.script" library="default.py">
-    <provides>game executable</provides>
+    <provides>executable game</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Launches Playnite from within Kodi.</summary>
-    <description lang="en">Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games. To install Playnite, go to https://playnite.link/download.html</description>
+    <summary lang="en_GB">Launches Playnite from within Kodi.</summary>
+    <description lang="en_GB">Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games. To install Playnite, go to https://playnite.link/download.html</description>
+    <summary lang="fr_FR">Lance Playnite depuis Kodi.</summary>
+    <description lang="fr_FR">Playnite est un gestionnaire de bibliothèque de jeux vidéo open source avec un objectif simple: fournir une interface unifiée pour tous vos jeux. Pour installer Playnite, accédez à https://playnite.link/download.html</description>
+    <summary lang="pt_BR">Lança Playnite de dentro do Kodi.</summary>
+    <description lang="pt_BR">Playnite é um gerenciador de biblioteca de videogame de código aberto com um objetivo simples: fornecer uma interface unificada para todos os seus jogos. Para instalar o Playnite, vá para https://playnite.link/download.html</description>
     <platform>windx</platform>
-    <language>en</language>
     <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
     <source>https://https://github.com/robbforce/script.playnite.launcher</source>
     <website>https://github.com/robbforce/script.playnite.launcher/blob/master/README.md</website>

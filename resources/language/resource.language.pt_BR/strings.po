@@ -1,0 +1,141 @@
+# Kodi Media Center language file
+# Addon Name: Playnite Launcher
+# Addon id: script.playnite.launcher
+# Addon Provider: robbforce
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: 2021-03-20 11:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: n/a\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/kodi-addons/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# Catergories
+
+msgctxt "#50050"
+msgid "General"
+msgstr "Geral"
+
+msgctxt "#50100"
+msgid "Advanced"
+msgstr "Avancé"
+
+# General settings
+
+msgctxt "#50051"
+msgid "Kodi exe"
+msgstr "Local do Kodi"
+
+msgctxt "#50052"
+msgid "Playnite desktop exe"
+msgstr "Local do Playnite desktop"
+
+msgctxt "#50053"
+msgid "Playnite fullscreen exe"
+msgstr "Local do Playnite fullscreen"
+
+msgctxt "#50054"
+msgid "Quit Kodi"
+msgstr "Fechar Kodi"
+
+msgctxt "#50125"
+msgid "Force kill Kodi after X seconds? (zero to disable)"
+msgstr "Forçar a morte de Kodi após X segundos? (zero para desativar)"
+
+msgctxt "#50126"
+msgid "Launch Playnite in desktop mode"
+msgstr "Inicie o Playnite no modo desktop"
+
+# Advanced settings
+
+msgctxt "#50110"
+msgid "Delete and update userdata scripts on next run"
+msgstr "Apagar e atualizar o script na inicialização do Playnite"
+
+msgctxt "#50111"
+msgid "Custom path for scripts"
+msgstr "Caminho personalizado para scripts"
+
+msgctxt "#50112"
+msgid "'Busy dialog' timeout (in seconds)"
+msgstr "Tempo limite de 'diálogo ocupado' (em segundos)"
+
+msgctxt "#50113"
+msgid "Script update notification"
+msgstr "Notificação de atualização de script"
+
+msgctxt "#50114"
+msgid "Program path check"
+msgstr "Verificar caminho do programa"
+
+msgctxt "#50115"
+msgid "Run Kodi in portable mode"
+msgstr "Kodi em modo portável"
+
+msgctxt "#50116"
+msgid "Run a script before Playnite"
+msgstr "Rodar um script antes de inicializar o Playnite?"
+
+msgctxt "#50117"
+msgid "Pre Playnite script location"
+msgstr "Local do script pre Playnite"
+
+msgctxt "#50118"
+msgid "Post Playnite script location"
+msgstr "Local do script pós Playnite"
+
+msgctxt "#50119"
+msgid "Run a script after Playnite"
+msgstr "Rodar um script após fechar o Playnite"
+
+# msgctxt "#50120"
+# msgid "Check for program 'wmctrl'"
+# msgstr "Procurar o programa 'wmctrl'"
+
+msgctxt "#50121"
+msgid "Suspend Kodi audio when running Playnite"
+msgstr "Suspender o áudio do Kodi ao rodar o Playnite"
+
+msgctxt "#50122"
+msgid "Scripts folder"
+msgstr "Pasta scripts"
+
+msgctxt "#50123"
+msgid "Minimize/Maximize Kodi"
+msgstr "Minimizar/Maximizar Kodi"
+
+msgctxt "#50124"
+msgid "Parameters to pass to the Playnite executable"
+msgstr "Parâmetros para passar para o executável Playnite"
+
+# Error messages
+
+msgctxt "#50210"
+msgid "File does not exist"
+msgstr "Arquivo não existe"
+
+msgctxt "#50211"
+msgid "Open addon settings?"
+msgstr "Abrir configurações do addon?"
+
+msgctxt "#50212"
+msgid "ERROR!"
+msgstr "ERRO!"
+
+msgctxt "#50213"
+msgid "New scripts available, update userdata scripts?"
+msgstr "Novos scripts disponíveis, atualizar o script?"
+
+msgctxt "#50124"
+msgid "Select 'No' to disable the Script Update Check"
+msgstr "Selecione 'Não' para desabilitar a verificação de atualização de script"
+
+msgctxt "#50125"
+msgid "Check kodi.log file for details"
+msgstr "Verifique o arquivo kodi.log para detalhes"
