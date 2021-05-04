@@ -59,7 +59,7 @@ this.desktop_mode = addon.getSettingBool("DesktopMode")
 
 def log(msg):
   msg = msg.encode(txt_encode)
-  xbmc.log('%s: %s' % (scriptid, msg))
+  xbmc.log(f'{scriptid}: {msg}')
 
 def get_addon_install_path():
   path = xbmcvfs.translatePath(addon.getAddonInfo('path'))
@@ -71,9 +71,9 @@ def get_addon_data_path():
     log(f'addon userdata folder does not exist, creating: {path}')
     try:
       xbmcvfs.mkdirs(path)
-      log('created directory: %s' % path)
+      log(f'created directory: {path}')
     except:
-      log('ERROR: failed to create directory: %s' % path)
+      log(f'ERROR: failed to create directory: {path}')
       dialog.notification(language(50212), language(50215), addonIcon, 5000)
   return path
 
@@ -97,21 +97,19 @@ def copy_file(oldPath, newPath):
   newDir = str(newPath.parents[0]) + '\\'
   newPath = str(newPath)
   if not xbmcvfs.exists(newDir):
-      log('sucsessfully created userdata scripts folder: %s' % newDir)
+    log(f'userdata scripts folder does not exist, creating: {newDir}')
     if not xbmcvfs.mkdirs(newDir):
-      log('ERROR: failed to create userdata scripts folder: %s' % newDir)
+      log(f'ERROR: failed to create userdata scripts folder: {newDir}')
       dialog.notification(language(50212), language(50215), addonIcon, 5000)
       sys.exit()
   if not xbmcvfs.exists(newPath):
-    log('script file does not exist, copying to userdata: %s' % newPath)
+    log(f'script file does not exist, copying to userdata: {newPath}')
     if not xbmcvfs.copy(oldPath, newPath):
       log(f'ERROR: failed to copy script file to userdata: {oldPath}')
-      log('sucsessfully copied userdata script: %s' % newPath)
-      log('ERROR: failed to copy script file to userdata: %s' % newPath)
       dialog.notification(language(50212), language(50215), addonIcon, 5000)
       sys.exit()
   else:
-    log('script file already exists, skipping copy to userdata: %s' % newPath)
+    log(f'script file already exists, skipping copy to userdata: {newPath}')
 
 # def make_script_executable():
 #   scriptPath = os.path.join(scripts_path, 'playnite-launcher.sh')
@@ -136,22 +134,21 @@ def copy_file(oldPath, newPath):
 
 def delete_userdata_scripts():
   if this.delete_user_script == True:
-    log('deleting userdata scripts, option enabled: delUserScriptSett = %s' % delUserScriptSett)
+    log(f'deleting userdata scripts, option enabled: delete_user_script = {str(this.delete_user_script)}')
     scriptFile = str(PurePath(scripts_path).joinpath('playnite-launcher.ahk'))
     delete_file(scriptFile)
     scriptFile = str(PurePath(scripts_path).joinpath('playnite-launcher.exe'))
-    log('skipping deleting userdata scripts, option disabled: delUserScriptSett = %s' % delUserScriptSett)
     delete_file(scriptFile)
     scriptFile = str(PurePath(scripts_path).joinpath('playnite-launcher.sh'))
     delete_file(scriptFile)
   elif this.delete_user_script == False:
+    log(f'skipping deleting userdata scripts, option disabled: delete_user_script = {str(this.delete_user_script)}')
 
 def delete_file(scriptFile):
   if xbmcvfs.exists(scriptFile):
     log(f'found and deleting: {scriptFile}')
     if not xbmcvfs.delete(scriptFile):
-      log('found and deleting: %s' % scriptFile)
-      log('ERROR: deleting failed: %s' % scriptFile)
+      log(f'ERROR: deleting failed: {scriptFile}')
       dialog.notification(language(50212), language(50215), addonIcon, 5000)
     addon.setSettingBool(id="DelUserScript", value=False)
 
@@ -183,7 +180,7 @@ def file_check():
   #     else:
   #       log('xdotool present...')
   if this.file_path_check == True:
-    log('running program file check, option is enabled: filePathCheck = %s' % filePathCheck)
+    log(f'running program file check, option is enabled: filePathCheck = {str(this.file_path_check)}')
     if this.os_win:
       this.playnite_desktop_win = addon.getSettingString("PlayniteDesktopWin")
       this.playnite_fullscreen_win = addon.getSettingString("PlayniteFullscreenWin")
@@ -205,39 +202,38 @@ def file_check():
     #   kodiExe = os.path.join(this.kodi_linux)
     #   executable_check(playniteExe, kodiExe)
   else:
-    log('skipping program file check, option disabled: filePathCheck = %s' % filePathCheck)
+    log(f'skipping program file check, option disabled: filePathCheck = {filePathCheck}')
 
 def executable_check(playniteDesktopExe, playniteFullscreenExe, kodiExe):
   if xbmcvfs.exists(playniteDesktopExe):
     log(f'Playnite desktop executable exists: {playniteDesktopExe}')
   else:
-      log('Playnite executable exists %s' % playniteDesktopExe)
     file_check_dialog(playniteDesktopExe)
   if xbmcvfs.exists(playniteFullscreenExe):
-      log('Playnite executable exists %s' % playniteFullscreenExe)
+    log(f'Playnite fullscreen executable exists: {playniteFullscreenExe}')
   else:
     file_check_dialog(playniteFullscreenExe)
   if xbmcvfs.exists(kodiExe):
-      log('Kodi executable exists %s' % xbmcExe)
+    log(f'Kodi executable exists: {kodiExe}')
   else:
     file_check_dialog(kodiExe)
 
 def file_check_dialog(programExe):
-  log('ERROR: dialog to go to addon settings because executable does not exist: %s' % programExe)
+  log(f'ERROR: dialog to go to addon settings because executable does not exist: {programExe}')
   if dialog.yesno(language(50212), programExe, language(50210), language(50211)):
     log('yes selected, opening addon settings')
     addon.openSettings()
     file_check()
     sys.exit()
   else:
-    log('ERROR: no selected with invalid executable, exiting: %s' % programExe)
+    log(f'ERROR: no selected with invalid executable, exiting: {programExe}')
     sys.exit()
 
 def script_version_check():
   if this.script_update_check == True:
     log('usr scripts are set to be checked for updates...')
     if this.delete_user_script == False:
-      log('usr scripts are not set to be deleted, running version check')
+      log('usr scripts are not set to be deleted, running version check...')
       sysScriptDir = PurePath(get_addon_install_path()).joinpath('resources', 'scripts')
       if this.os_win:
         sysScriptPath = PurePath.joinpath(sysScriptDir, 'playnite-launcher.ahk')
@@ -276,27 +272,28 @@ def compare_file(sysScriptPath, usrScriptPath):
           break
     log(f'usr "playnite.launcher.script.revision=": {scriptUsrVer}')
   if int(scriptSysVer) > int(scriptUsrVer):
+    log(f'system scripts have been updated: sys:{scriptSysVer} > usr:{scriptUsrVer}')
     if dialog.yesno(language(50113), language(50213), language(50214)):
       this.delete_user_script = True
-      log('yes selected, option delUserScriptSett enabled: %s' % delUserScriptSett)
+      log(f'yes selected, option delete_user_script enabled: {str(this.delete_user_script)}')
     else:
       this.delete_user_script = False
       this.script_update_check = False
       addon.setSettingBool(id="ScriptUpdateCheck", value=False)
+      log(f'no selected, script update check disabled: ScriptUpdateCheck = {str(this.script_update_check)}')
   else:
     log('userdata scripts are up to date')
 
 def quit_kodi_dialog():
   if this.quit_kodi == 2:
     log(f'quit setting: {str(this.quit_kodi)} selected, asking user to pick')
-    log('quit setting: %s selected, asking user to pick' % quitKodiSetting)
     if dialog.yesno('Playnite Launcher', language(50053)):
       this.quit_kodi = 0
     else:
       this.quit_kodi = 1
   if this.quit_kodi == 1 and this.minimize_kodi == False:
     this.quit_kodi = 3
-  log('quit setting selected: %s' % quitKodiSetting)
+  log(f'quit setting selected: {str(this.quit_kodi)}')
 
 def kodi_busy_dialog():
   if this.busy_dialog_time != 0:
@@ -304,7 +301,7 @@ def kodi_busy_dialog():
     log('busy dialog started')
     time.sleep(this.busy_dialog_time)
     xbmc.executebuiltin("Dialog.Close(busydialognocancel)")
-    log('busy dialog stopped after: %s seconds' % busyDialogTime)
+    log(f'busy dialog stopped after: {str(this.busy_dialog_time)} seconds')
 
 def set_pre_post_script_parameters():
   if this.pre_script_enabled == False or this.pre_script == '':
@@ -313,7 +310,6 @@ def set_pre_post_script_parameters():
     if not os.path.isfile(os.path.join(this.pre_script)):
       log(f'pre-playnite script does not exist, disabling!: "{this.pre_script}"')
       this.pre_script = 'false'
-      log('pre-playnite script does not exist, disabling!: "%s"' % preScript)
       dialog.notification(language(50212), language(50215), addonIcon, 5000)
   log(f'pre playnite script: {this.pre_script}')
   if this.post_script_enabled == False or this.post_script == '':
@@ -322,10 +318,8 @@ def set_pre_post_script_parameters():
     if not os.path.isfile(os.path.join(this.post_script)):
       log(f'post-playnite script does not exist, disabling!: "{this.post_script}"')
       this.post_script = 'false'
-      log('post-playnite script does not exist, disabling!: "%s"' % postScript)
       dialog.notification(language(50212), language(50215), addonIcon, 5000)
   log(f'post playnite script: {this.post_script}')
-  log('post playnite script: %s' % postScript)
 
 def launch_playnite():
   # if this.os_android:
@@ -347,7 +341,7 @@ def launch_playnite():
   #   playnitelauncher = os.path.join(scripts_path, 'playnite-launcher.sh')
   #   cmd = '"%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"' % (playnitelauncher, this.playnite_linux, this.kodi_linux, str(this.quit_kodi), str(this.kodi_portable).lower(), this.pre_script, this.post_script, this.playnite_parameters, str(this.force_kill_kodi))
   try:
-    log('attempting to launch: %s' % cmd)
+    log(f'attempting to launch: {cmd}')
     if this.suspend_audio == True:
       xbmc.audioSuspend()
       log('audio suspended')
@@ -366,8 +360,7 @@ def launch_playnite():
       subprocess.Popen(cmd, shell=True, close_fds=True)
       kodi_busy_dialog()
   except:
-    log('ERROR: failed to launch: %s' % cmd)
-    print cmd.encode(txt_encode)
+    log(f'ERROR: failed to launch: {cmd}')
     dialog.notification(language(50212), language(50215), addonIcon, 5000)
 
 #HACK: sys.getfilesystemencoding() is not supported on all systems (e.g. Android)
@@ -380,10 +373,10 @@ except:
 # if this.os_android:
 #   this.os_linux = 0
 #   txt_encode = 'utf-8'
-log('*running Playnite-Launcher v%s....' % addonVersion)
-#log('running on osAndroid, osOsx, osLinux, osWin: %s %s %s %s ' % (osAndroid, osOsx, osLinux, osWin))
-log('running on osWin: %s ' % (osWin))
-log('system text encoding in use: %s' % txt_encode)
+log(f'*running Playnite-Launcher v{addonVersion}')
+#log('running on os_android, os_osx, os_linux, os_win: %s %s %s %s ' % (this.os_android, this.os_osx, this.os_linux, this.os_win))
+log(f'running on os_win: {this.os_win}')
+log(f'system text encoding in use: {txt_encode}')
 if this.custom_script_folder_enabled == True:
   this.scripts_path = this.custom_script_folder
 else:
