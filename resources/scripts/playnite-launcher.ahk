@@ -78,7 +78,7 @@ oIcons := TrayIcon_GetInfo(PlayniteExe)
 If (oIcons[1].process = PlayniteExe)
 {
   TrayIcon_Button(PlayniteExe, "L", True)
-  WinWaitActive, ahk_exe %PlayniteExe%,,5
+  WinWaitActive, ahk_exe %PlayniteExe%,, 5
 }
 
 ; Check if Playnite is running for the current user and launch or focus it.
@@ -110,7 +110,7 @@ WinWaitActive, ahk_pid %varPID%,, 5
 WinHook.Event.Add(0x8001, 0x8001, "PlayniteClosedEvent", varPID, "Playnite")
 ;WinHook.Event.Add(0x0016, 0x0016, "PlayniteMinimizedEvent", varPID, "Playnite")
 
-; Now close / kill Kodi for the current user.
+; If requested, close / kill Kodi for the current user.
 If (Parameters.3 = "0")
 {
   varPID := ProcessExist(KodiExe, A_UserName)
@@ -177,12 +177,12 @@ If (Parameters.3 = "0")
 }
 
 ; Wait for Kodi to load. Set timeout to 5, so this script doesn't hang.
-WinWaitActive, ahk_pid %varPID%,,5
+WinWaitActive, ahk_pid %varPID%,, 5
 
 ; ----------------------------------------------------------------------------------------------------------------------
 ; Check if Playnite re-opened after an update or the user switched to the dekstop / fullscreen exe.
 ; ErrorLevel 0 indicates the window was found.
-WinWaitActive, ahk_group PlayniteExes,,10
+WinWaitActive, ahk_group PlayniteExes,, 10
 If (ErrorLevel = 0)
 {
   ; Set the PID variable again. Try the fullscreen exe first.
