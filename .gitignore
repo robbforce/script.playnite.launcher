@@ -15,3 +15,7 @@
 Thumbs.db
 .DS_Store
 .*~
+
+env/
+
+.vscode/
