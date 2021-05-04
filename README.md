@@ -9,9 +9,9 @@ Kodi-Launches-Playnite-Addon by hoksilato2: https://github.com/hoksilato2/Kodi-L
 (which was forked from) Kodi-Launches-Steam-Addon by BrosMakingSoftware: https://github.com/BrosMakingSoftware/Kodi-Launches-Steam-Addon<br/>
 Credit goes to them for their open source projects that enabled me to build upon their work.
 
-### Info you might like to know about this add-on
+### Info you might like to know about this add-on:
 - All code is open source, hosted on [GitHub](https://github.com/robbforce/script.playnite.launcher) and published under the GPL v3 license.
-- Created for Kodi v17 (Krypton v17.x or higher) and following most [Add-on rules](http://kodi.wiki/view/Add-on_rules). (The compiled autohotkey script is an exception.)
+- Created for Kodi v19 (Krypton v19.x or higher) and following most [Add-on rules](http://kodi.wiki/view/Add-on_rules). (The compiled autohotkey script is an exception.)
 - To find Applications/Programs paths, this add-on relies on default environment variables found in Windows. No _"registry-hack"_ programs are used for this purpose.
 - No 3rd-party libraries from unknown sources or with confusing distribution licenses. What you see on this repository is exactly what you need to run the addon. All code is written in Python and AutoHotKey script and all source is available.
 - Respects your privacy by not collecting any kind of hardware / software information, usage statistics or any kind of data from you or your system
@@ -25,8 +25,8 @@ This add-on is just a launcher, so it assumes that you've already installed and 
 ## Installation
 
 #### Prerequisites
-Hopefully you've already done this, but if not, you'll need to install Kodi. Download it from https://kodi.tv/ and install / configure it.
-You'll also need to install and configure Playnite, which can be downloaded from https://playnite.link/ or from [Github](https://github.com/JosefNemec/Playnite), where you can also find the source. Configuration help can be found in the [wiki](https://github.com/JosefNemec/Playnite/wiki).
+Hopefully you've already done this, but if not, you'll need to install Kodi. Download it from https://kodi.tv and install / configure it.
+You'll also need to install and configure Playnite, which can be downloaded from https://playnite.link or from [Github](https://github.com/JosefNemec/Playnite), where you can also find the source. Configuration help can be found in the [wiki](https://github.com/JosefNemec/Playnite/wiki).
 
 #### Steps
 1. Download the add-on: This add-on is not currently registered on any official or unofficial Kodi repositories, therefore you'll need to install it from a zip file. Go to the [releases](https://github.com/robbforce/script.playnite.launcher/releases) page and download the latest zip file.
